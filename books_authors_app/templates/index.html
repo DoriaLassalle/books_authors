@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books & Authors</title>   
+    <title>{% block title %}Books & Authors{% endblock%}</title>   
 
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
@@ -14,23 +14,21 @@
 
     
 </head>
-<body>
-    <div class="container">
-
-    </div>
-    <h1 class="mb-4 text-center red-bg-gd py-5">BOOKS & AUTHORS</h1>
+<body>   
+    <h1 class="mb-4 text-center red-bg-gd py-5">{% block header %}BOOKS & AUTHORS {% endblock %}</h1>
     <div class="row">
+        {% block body %}
         <div class="container col-4">
             <h2 class="">Add a Book</h2>
             <form action="addNewBook" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <label for="title" class="form-label">Book Title</label>
-                  <input type="text" class="form-control" id="title" name="title" >             
+                    <label for="title" class="form-label">Book Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required >             
                 </div>
                 <div class="mb-3">
-                  <label for="decription" class="form-label">Description</label>               
-                  <textarea class="form-control" id="decription" rows="3" name="desc"></textarea>
+                    <label for="decription" class="form-label">Description</label>               
+                    <textarea class="form-control" id="decription" rows="3" name="desc" required></textarea>
                 </div>                
                 <button type="submit" class="btn btn-primary mb-3">Add Book</button>             
             </form>
@@ -45,9 +43,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th scope="col">ID</>
-                      <th scope="col">Title</th>
-                      <th scope="col">Action</th>                      
+                        <th scope="col">ID</>
+                        <th scope="col">Title</th>
+                        <th scope="col">Action</th>                      
                     </tr>
                 </thead>
                 <tbody> 
@@ -61,6 +59,9 @@
                 </tbody>
             </table>
         </div>
-    </div>    
+        {% endblock %}
+    </div> 
+    
+   
 </body>
 </html>

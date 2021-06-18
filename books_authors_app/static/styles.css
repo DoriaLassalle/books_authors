@@ -4,7 +4,7 @@
     background: linear-gradient(180deg, rgba(220,53,71,1) 33%, rgba(255,255,255,1) 100%);
 }
 
-.red-bg-gd-inv{
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 33%, rgba(220,53,71,1) 100%);
+.blue-bg-gd{
+    background: rgb(15,110,254);
+    background: linear-gradient(180deg, rgba(15,110,254,1) 33%, rgba(255,255,255,1) 100%)
 }

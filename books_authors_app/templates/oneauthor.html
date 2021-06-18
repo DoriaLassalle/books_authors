@@ -8,9 +8,13 @@
 
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
 </head>
 <body>
-    <h2 class="text-center my-3">You Are watching this Author:</h2>
+    <h2 class="text-center mb-3 blue-bg-gd p-4">You Are watching this Author:</h2>
     <div class="row">
         <div class="container col-6 my-4">
             <h2>{{name}} {{lastName}}</h2>
