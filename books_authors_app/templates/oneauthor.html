@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Info</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body>
+    <h2 class="text-center my-3">You Are watching this Author:</h2>
+    <div class="row">
+        <div class="container col-6 my-4">
+            <h2>{{name}} {{lastName}}</h2>
+            <p><strong>ID: </strong>{{authorId}}</p>
+            <p><strong>Notes: </strong>{{notes}}</p>
+            <p><strong>Books:</strong>
+                <ul>
+                    {% for book in authorBooks %}
+                        <li>{{book.title}}
+                            <form action="deleteBook/{{book.id}}" method="POST" style="display:inline-block;" class="mx-4">
+                            {% csrf_token %}
+                                <input type="submit" value="Delete this Book" class="btn-danger m-2 rounded-2"></input> 
+                            </form> 
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+            <!-- Lista desplegable -->
+            <form action="{{bookId}}" method="POST">
+                {% csrf_token %}
+                <select name="chooseBook" class="form-select" aria-label="Default select example">
+                    <option selected>Select a Book</option>
+                    {% for book in allBooks %}
+                        {%if book not in authorBooks %}
+                            <option value="{{book.id}}">{{book.title}}</option>
+                        {% endif %}
+                    {% endfor %}                   
+                </select>
+                <button type="submit" class="btn btn-primary my-3">Add Book to this Author</button>
+            </form>
+            
+            <form action="/authors">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">Back To Authors</button>
+            </form>          
+        </div> 
+    </div>    
+</body>
+</html>

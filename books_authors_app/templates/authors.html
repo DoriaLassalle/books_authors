@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Author</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body>
+    <h1 class="my-4 text-center">AUTHORS & BOOKS</h1>
+    <div class="row">
+        <div class="container col-4">
+            <h2>Add an Author</h2>
+            <form action="addAuthor" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="firstName" class="form-label"> Name</label>
+                  <input type="text" class="form-control" id="firstName" name="firstName" >             
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" > 
+                </div>
+                <div class="mb-3">
+                    <label for="decription" class="form-label">Notes</label>               
+                    <textarea class="form-control" id="decription" rows="3" name="newNote"></textarea>
+                  </div>
+                <button type="submit" class="btn btn-primary mb-3">Add Author</button>
+            </form>
+            <form action="/">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">Go to Books</button>
+            </form>
+        </div>
+        <div class="container col-4 my-3">
+            <h2 class="text-center">Authors List</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">ID</>
+                      <th scope="col">Name</th>
+                      <th scope="col">Action</th>                      
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for author in allAuthors %}                     
+                        <tr>
+                            <th scope="row">{{author.id}}</th>
+                            <td>{{author.first_name}} {{author.last_name}}</td>
+                            <td><a href="author/{{author.id}}">View</a></td>                                                                   
+                        </tr> 
+                    {% endfor %}                   
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</body>
+</html>

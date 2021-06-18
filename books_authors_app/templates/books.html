@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books Info</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+
+</head>
+<body>
+    <h2 class="text-center my-3">You Are Watching the Book:</h2>
+    <div class="row">
+        <div class="container col-6 my-4">
+            <h2>{{title}}</h2>
+            <p><strong>ID: </strong>{{bookId}}</p>
+            <p><strong>Description: </strong>{{desc}}</p>
+            <p><strong>Authors:</strong>
+                <ul>
+                    {% for author in bookAuthors%}
+                        <li>{{author.first_name}} {{author.last_name}}
+                            <form action="deleteAuthor/{{author.id}}" method="POST" style="display:inline-block;" class="mx-4">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete this Author" class="btn-danger m-2 rounded-2"></input> 
+                            </form>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </p>
+            <!--Lista Desplegable-->
+            <form action="{{bookId}}" method="POST">
+                {% csrf_token %}
+                <select name="chooseAuthor" class="form-select" aria-label="Default select example">
+                    <option selected>Select an Author</option>
+                    {% for author in allAuthors %}
+                        {% if author not in bookAuthors %}
+                            <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+                        {% endif %}
+                    {% endfor %}                   
+                </select>
+                <button type="submit" class="btn btn-primary my-3">Add Author to this Book</button>
+            </form> 
+            <form action="/">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">Back To Books</button>
+            </form>           
+        </div> 
+    </div>
+</body>
+</html>
