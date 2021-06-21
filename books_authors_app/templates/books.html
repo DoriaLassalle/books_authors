@@ -26,7 +26,8 @@
                         <li>{{author.first_name}} {{author.last_name}}
                             <form action="deleteAuthor/{{author.id}}" method="POST" style="display:inline-block;" class="mx-4">
                                 {% csrf_token %}
-                                <input type="submit" value="Delete this Author" class="btn-danger m-2 rounded-2"></input> 
+                                <input type="submit" value="Delete this Author" class="btn-danger m-2 rounded-2"></input>
+                                <input type="hidden" id="bookId" name="bookId" value="{{bookId}}"> 
                             </form>
                         </li>
                     {% endfor %}

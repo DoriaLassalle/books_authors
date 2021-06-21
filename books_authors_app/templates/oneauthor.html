@@ -27,6 +27,7 @@
                             <form action="deleteBook/{{book.id}}" method="POST" style="display:inline-block;" class="mx-4">
                             {% csrf_token %}
                                 <input type="submit" value="Delete this Book" class="btn-danger m-2 rounded-2"></input> 
+                                <input type="hidden" id="authorId" name="authorId" value="{{authorId}}"> 
                             </form> 
                         </li>
                     {% endfor %}
