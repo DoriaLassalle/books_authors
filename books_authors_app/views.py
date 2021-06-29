@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Book, Author
 
-# Create your views here.
 
 def index(request):
     allBooks=Book.objects.all()    
@@ -79,16 +78,28 @@ def showAuthor(request, authorId):
 
 
 def deleteAuthor(request, authorId):
-    authorToDelete=Author.objects.get(id=authorId)
-    currentBook=request.POST["bookId"]  #libro que se está mostrando      
-    authorToDelete.delete() #elimino el autor del libro pero no el libro
+    #authorToDelete=Author.objects.get(id=authorId)
+    #currentBook=request.POST["bookId"]  #libro que se está mostrando      
+    #authorToDelete.delete() #elimino el autor de la bd pero no el libro
+
+    #eliminar solo la relacion
+    authorToRemove=Author.objects.get(id=authorId)
+    currentBook=request.POST["bookId"]
+    authorToRemove.books.remove(currentBook) #elimino solo la relacionle quito el autor a este libro, no borro el autor
+    
     return redirect(f"/books/{currentBook}") #reddirecciono al mismo libro donde estaba
 
 
 def deleteBook(request, bookId):
-    bookToDelete=Book.objects.get(id=bookId)#recupero el libro a eliminar
-    currentAuthor=request.POST["authorId"]#guardo el autor que se esta mostrando para recargar el mismp  
-    bookToDelete.delete()  
+    #bookToDelete=Book.objects.get(id=bookId)#recupero el libro a eliminar
+    #currentAuthor=request.POST["authorId"]#guardo el autor que se esta mostrando para recargar el mismp  
+    #bookToDelete.delete()  #borra de bd el libro
+    
+    #eliminar solo la relacion
+    bookToRemove=Book.objects.get(id=bookId)#recupero el libro 
+    currentAuthor=request.POST["authorId"]#guardo el autor 
+    bookToRemove.authors.remove(currentAuthor)#elinimo solo la relacion
+
     return redirect(f"/author/{currentAuthor}")
 
    
